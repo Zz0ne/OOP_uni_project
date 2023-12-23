@@ -5,16 +5,24 @@ from .sampleLoader import SampleLoader
 
 
 class Pad:
-    def __init__(self, window, row, column, keyBind):
+    def __init__(self, window, row, column, keyBind, feedBackColor):
         self.__row = row
         self.__column = column
+        self.__window = window
         self.__pad = tkinter.Frame(window)
         self.__sampleLoader = SampleLoader()
         self.__keyBind = keyBind
+        self.__feedBackColor = feedBackColor
 
     def __loadWidgets(self):
         self.__playButton = PlayButton(
-            self.__pad, 0, 0, self.__playAudio, self.__keyBind
+            self.__window,
+            self.__pad,
+            0,
+            0,
+            self.__playAudio,
+            self.__keyBind,
+            self.__feedBackColor,
         )
         self.__setSampleButton = LoadSampleButton(
             self.__pad, 120, 1, self.__loadAudioFile

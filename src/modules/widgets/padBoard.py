@@ -12,22 +12,16 @@ class PadBoard:
         self.__pad = tkinter.Frame(window)
         self.__widgets = []
         self.__keyBindings = [
-            "1",
-            "q",
-            "a",
-            "z",
-            "2",
-            "w",
-            "s",
-            "x",
-            "3",
-            "e",
-            "d",
-            "c",
-            "4",
-            "r",
-            "f",
-            "v",
+            ["<Key-1>", "<Key-2>", "<Key-3>", "<Key-4>"],
+            ["<Key-q>", "<Key-w>", "<Key-e>", "<Key-r>"],
+            ["<Key-a>", "<Key-s>", "<Key-d>", "<Key-f>"],
+            ["<Key-z>", "<Key-x>", "<Key-c>", "<Key-v>"],
+        ]
+        self.__feedbackColors = [
+            ["red", "green", "blue", "yellow"],
+            ["orange", "purple", "brown", "pink"],
+            ["cyan", "magenta", "lime", "maroon"],
+            ["navy", "olive", "teal", "white"],
         ]
 
     def __loadWidgets(self):
@@ -35,7 +29,13 @@ class PadBoard:
         for i in range(self.__rowSize):
             for j in range(self.__columnSize):
                 self.__widgets.append(
-                    Pad(self.__window, i, j, self.__keyBindings[keybindingsIndex])
+                    Pad(
+                        self.__window,
+                        i,
+                        j,
+                        self.__keyBindings[i][j],
+                        self.__feedbackColors[i][j],
+                    )
                 )
                 keybindingsIndex += 1
 
