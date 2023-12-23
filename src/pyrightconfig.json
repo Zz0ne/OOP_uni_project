@@ -1,0 +1,13 @@
+{
+  "modules": {
+    "widgets": [
+      "buttons",
+      "pads",
+      "padBoard",
+      "sampleLoader"
+    ],
+    "audio": [
+      "audio"
+    ]
+  }
+}
