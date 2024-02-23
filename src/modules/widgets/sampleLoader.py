@@ -1,9 +1,7 @@
 import os
 import shutil
 
-import tkinter
-from tkinter import filedialog
-from tkinter import messagebox
+from tkinter import filedialog, messagebox, Frame, Label, Toplevel
 
 from .buttons import GenericButton
 from .sampleList import SampleList
@@ -21,7 +19,7 @@ class SampleLoader:
     def __loadWidgets(self):
         """ Cria instancias dos widgets necessários """
 
-        self.__lable = tkinter.Label(self.__loadSampleWindow, text="Samples:")
+        self.__lable = Label(self.__loadSampleWindow, text="Samples:")
         self.__addSampleButton = GenericButton(
             self.__loadSampleWindow,
             text="Add",
@@ -29,12 +27,20 @@ class SampleLoader:
             column=2,
             callback=self.__addSample,
         )
+        self.__confirmCancelFrame = Frame(self.__loadSampleWindow)
         self.__confirmButton = GenericButton(
-            self.__loadSampleWindow,
+            self.__confirmCancelFrame,
             text="Confirm",
-            row=3,
-            column=1,
+            row=0,
+            column=0,
             callback=self.__onConfirm,
+        )
+        self.__cancelButton = GenericButton(
+            self.__confirmCancelFrame,
+            text="Cancel",
+            row=0,
+            column=1,
+            callback=self.__onCancel,
         )
         self.__sampleList = SampleList(self.__loadSampleWindow)
 
@@ -43,8 +49,10 @@ class SampleLoader:
 
         self.__lable.grid(row=1, column=1)
         self.__sampleList.place()
+        self.__confirmCancelFrame.grid(row=3, column=1)
         self.__addSampleButton.place()
         self.__confirmButton.place()
+        self.__cancelButton.place()
 
     def __onConfirm(self):
         """ Método executado ao pressionar o botão 'confirm' """
@@ -55,6 +63,9 @@ class SampleLoader:
             return
         self.__setSampleCallback(Audio(sampleName))
         self.__loadSampleWindow.destroy()
+
+    def __onCancel(self):
+        pass
 
     def __addSample(self):
         """ Método executado ao pressionar o botão 'Add' """
@@ -72,7 +83,7 @@ class SampleLoader:
     def run(self):
         """ Cria uma nova janela, bloqueia a janela principal, centra a nova janela em relação à janela principal, cria e posiciona os widgets """
 
-        self.__loadSampleWindow = tkinter.Toplevel()
+        self.__loadSampleWindow = Toplevel()
         self.__loadSampleWindow.title("SampleLoader")
         self.__loadSampleWindow.resizable(False, False)
         self.__loadSampleWindow.attributes("-topmost", True)
