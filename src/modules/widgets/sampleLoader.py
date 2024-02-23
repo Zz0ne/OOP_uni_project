@@ -1,18 +1,26 @@
 import os
-import tkinter
 import shutil
+
+import tkinter
 from tkinter import filedialog
+from tkinter import messagebox
 
 from .buttons import GenericButton
+from .sampleList import SampleList
 from modules.audio.audio import Audio
 
 
 class SampleLoader:
-    def __init__(self):
+    """ Classe que representa o sample loader que permite ao utilizador adicionar e carregar novos samples """
+
+    def __init__(self, window, callback):
+        self.__window = window
         self.__sampleDirectory = "../samples/"
-        self.__sampleSelected = False
+        self.__setSampleCallback = callback 
 
     def __loadWidgets(self):
+        """ Cria instancias dos widgets necessários """
+
         self.__lable = tkinter.Label(self.__loadSampleWindow, text="Samples:")
         self.__addSampleButton = GenericButton(
             self.__loadSampleWindow,
@@ -26,60 +34,51 @@ class SampleLoader:
             text="Confirm",
             row=3,
             column=1,
-            callback=self.__closeWindow,
+            callback=self.__onConfirm,
         )
-        self.__sampleList = tkinter.Listbox(self.__loadSampleWindow, height=5, width=52)
-        self.__sampleList.bind("<<ListboxSelect>>", self.__setSample)
+        self.__sampleList = SampleList(self.__loadSampleWindow)
 
     def __placeWidgets(self):
+        """ Posiciona widgets na janela """
+
         self.__lable.grid(row=1, column=1)
-        self.__sampleList.grid(row=2, column=1)
+        self.__sampleList.place()
         self.__addSampleButton.place()
         self.__confirmButton.place()
 
-    def __closeWindow(self):
+    def __onConfirm(self):
+        """ Método executado ao pressionar o botão 'confirm' """
+
+        sampleName = self.__sampleList.selectedSample
+        if (len(sampleName) == 0):
+            messagebox.showerror("Error", "Please select a sample.")
+            return
+        self.__setSampleCallback(Audio(sampleName))
         self.__loadSampleWindow.destroy()
 
-    def __loadSamples(self):
-        try:
-            for filename in os.listdir(self.__sampleDirectory):
-                filePath = os.path.join(self.__sampleDirectory, filename)
-                if os.path.isfile(filePath):
-                    self.__sampleList.insert(tkinter.END, filePath)
-        except FileNotFoundError:
-            print("Directory not found:", self.__sampleDirectory)
-
-    def __setSample(self, event):
-        widget = event.widget
-        selection = widget.curselection()
-        if selection:
-            index = selection[0]
-            sampleName = widget.get(index)
-            self.__sample = Audio(sampleName)
-            self.__sampleSelected = True
-
     def __addSample(self):
+        """ Método executado ao pressionar o botão 'Add' """
+
         audioFilePath = filedialog.askopenfilename()
         if audioFilePath:
             filename = os.path.basename(audioFilePath)
             destinationPath = os.path.join(self.__sampleDirectory, filename)
             try:
                 shutil.copy(audioFilePath, destinationPath)
-                self.__sampleList.insert(tkinter.END, destinationPath)
+                self.__sampleList += destinationPath
             except Exception as e:
                 print("Error copying file:", e)
 
     def run(self):
-        self.__loadSampleWindow = tkinter.Tk()
+        """ Cria uma nova janela, bloqueia a janela principal, centra a nova janela em relação à janela principal, cria e posiciona os widgets """
+
+        self.__loadSampleWindow = tkinter.Toplevel()
         self.__loadSampleWindow.title("SampleLoader")
+        self.__loadSampleWindow.resizable(False, False)
         self.__loadSampleWindow.attributes("-topmost", True)
+        self.__loadSampleWindow.grab_set()
+        x = self.__window.winfo_x()
+        y = self.__window.winfo_y()
+        self.__loadSampleWindow.geometry("+%d+%d" % (x + 100, y + 100))
         self.__loadWidgets()
         self.__placeWidgets()
-        self.__loadSamples()
-
-    def play(self):
-        return self.__sample.play()
-
-    @property
-    def ready(self):
-        return self.__sampleSelected

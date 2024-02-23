@@ -4,7 +4,8 @@
       "buttons",
       "pads",
       "padBoard",
-      "sampleLoader"
+      "sampleLoader",
+      "sampleList"
     ],
     "audio": [
       "audio"

@@ -6,34 +6,47 @@ from modules.audio.audio import Audio
 
 
 class App:
-    def __init__(self, padBoardSize):
+    """ Classe principal, a raiz do programa. """
+
+    def __init__(self):
         self.__gui = tkinter.Tk()
         self.__gui.title("SimpleSampler")
         self.__gui.protocol("WM_DELETE_WINDOW", self.__onClosing)
         self.__gui.resizable(False, False)
-        self.__padGridSize = {"x": padBoardSize[0], "y": padBoardSize[1]}
+        self.__padGridSize = {"x": 4, "y": 4}
         self.__widgets = []
-        Audio.initAudioPlayer(padBoardSize[0] * padBoardSize[1])
+
+        # iniciar as funcionalidade de reproduzir audio
+        numChannles = self.__padGridSize["x"] * self.__padGridSize["y"]
+        Audio.initAudioPlayer(numChannles)
 
     def __onClosing(self):
+        """ Callback que executa quando o utilizador pressiona o 'x' na janela principal """
+
         if messagebox.askokcancel("Quit", "Do you want to quit?"):
             quit()
 
     def __loadWidgets(self):
+        """ Cria instancia do 'PadBoard' """
+
         self.__widgets.append(
             PadBoard(self.__gui, self.__padGridSize["x"], self.__padGridSize["y"], 0, 0)
         )
 
     def __placeWidgets(self):
+        """ Posiciona widgets na janela """
+
         for widget in self.__widgets:
             widget.place()
 
     def run(self):
+        """ Cria e posiciona os widgets na janela e corre a aplicação """
+
         self.__loadWidgets()
         self.__placeWidgets()
         self.__gui.mainloop()
 
 
 if __name__ == "__main__":
-    app = App((4, 4))
+    app = App()
     app.run()
