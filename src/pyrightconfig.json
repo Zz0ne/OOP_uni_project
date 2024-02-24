@@ -1,14 +1,7 @@
 {
   "modules": {
-    "widgets": [
-      "buttons",
-      "pads",
-      "padBoard",
-      "sampleLoader",
-      "sampleList"
-    ],
-    "audio": [
-      "audio"
-    ]
+    "save": ["save"],
+    "widgets": ["buttons", "pads", "padBoard", "sampleLoader", "sampleList"],
+    "audio": ["audio"]
   }
 }

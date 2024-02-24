@@ -55,7 +55,7 @@ class SampleLoader:
         self.__cancelButton.place()
 
     def __onConfirm(self):
-        """ Método executado ao pressionar o botão 'confirm' """
+        """ Método executado ao pressionar o botão 'Confirm' """
 
         sampleName = self.__sampleList.selectedSample
         if (len(sampleName) == 0):
@@ -65,7 +65,8 @@ class SampleLoader:
         self.__loadSampleWindow.destroy()
 
     def __onCancel(self):
-        pass
+        """ Método executado ao pressionar o botão 'Cancel' """
+        self.__loadSampleWindow.destroy()
 
     def __addSample(self):
         """ Método executado ao pressionar o botão 'Add' """
