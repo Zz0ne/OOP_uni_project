@@ -2,12 +2,12 @@ import tkinter
 
 from .buttons import PlayButton, LoadSampleButton
 from .sampleLoader import SampleLoader
-
+from save.save import Save
 
 class Pad:
     """ Classe composta pelo 'PlayButton' e 'LoadSampleButton' """
 
-    def __init__(self, window, row, column, keyBind, feedBackColor, defaultSample):
+    def __init__(self, window, row, column, keyBind, feedBackColor):
         self.__row = row
         self.__column = column
         self.__window = window
@@ -15,7 +15,7 @@ class Pad:
         self.__sampleLoader = SampleLoader(window, self.__setSample)
         self.__keyBind = keyBind
         self.__feedBackColor = feedBackColor
-        self.__sample = defaultSample
+        self.__sample = Save.load(keyBind)
 
     def __loadWidgets(self):
         """ Cria instancias do 'PlayButton' e do ' LoadSampleButton' """
@@ -54,6 +54,7 @@ class Pad:
         """ Método usado como callback pelo 'SampleLoader' para estrair o sample selecionado """
 
         self.__sample = sample
+        Save.save(self.__keyBind, sample)
 
     def place(self):
         """ Posiciona os widgets na janela """

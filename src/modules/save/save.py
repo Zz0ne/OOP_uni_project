@@ -1,6 +1,8 @@
 import json
+import os
 
 saveFilePath = "../../../saves/saves.json"
+sampleBasePath = "../../../samples/"
 
 def getJsonFile(path:str):
     saveFile = open(path, "r", encoding="utf-8")
@@ -19,8 +21,11 @@ class Save:
         saveJsonFile(saveFilePath, jsonFile)
 
     @staticmethod
-    def load(keyBind: str, default: bool):
+    def load(keyBind: str):
         saveJson = getJsonFile(saveFilePath)
-        if default:
-            return saveJson["default"][keyBind]
-        return saveJson["userSave"][keyBind]
+        sample = sampleBasePath + saveJson["userSave"][keyBind]
+
+        if os.path.exists(sample):
+                return sample
+        else:
+            return  sampleBasePath + "default" + saveJson["default"][keyBind]
