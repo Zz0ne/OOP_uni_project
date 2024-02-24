@@ -66,6 +66,7 @@ class SampleLoader:
 
     def __onCancel(self):
         """ Método executado ao pressionar o botão 'Cancel' """
+
         self.__loadSampleWindow.destroy()
 
     def __addSample(self):
@@ -82,7 +83,9 @@ class SampleLoader:
                 print("Error copying file:", e)
 
     def run(self):
-        """ Cria uma nova janela, bloqueia a janela principal, centra a nova janela em relação à janela principal, cria e posiciona os widgets """
+        """ Cria uma nova janela, bloqueia a janela principal,
+        centra a nova janela em relação à janela principal,
+        cria e posiciona os widgets """
 
         self.__loadSampleWindow = Toplevel()
         self.__loadSampleWindow.title("SampleLoader")

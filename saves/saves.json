@@ -1,0 +1,39 @@
+{
+  "default": {
+    "1": "Wood_MF_Valve_A#2.wav",
+    "2": "Wood_MF_Valve_A#3.wav",
+    "3": "Wood_MF_Valve_A#4.wav",
+    "4": "Wood_MF_Valve_C#3.wav",
+    "q": "Wood_MF_Valve_C#4.wav",
+    "w": "Wood_MF_Valve_C#6.wav",
+    "e": "Wood_MF_Valve_D#2.wav",
+    "r": "Wood_MF_Valve_D#3.wav",
+    "a": "Wood_MF_Valve_D#4.wav",
+    "s": "Wood_MF_Valve_D#6.wav",
+    "d": "Wood_MF_Valve_F#2.wav",
+    "f": "Wood_MF_Valve_F#3.wav",
+    "z": "Wood_MF_Valve_F#4.wav",
+    "x": "Wood_MF_Valve_F#5.wav",
+    "c": "Wood_MF_Valve_G#2.wav",
+    "v": "Wood_MF_Valve_G#3.wav"
+  },
+
+  "userSave": {
+    "1": "",
+    "2": "",
+    "3": "",
+    "4": "",
+    "q": "",
+    "w": "",
+    "e": "",
+    "r": "",
+    "a": "",
+    "s": "",
+    "d": "",
+    "f": "",
+    "z": "",
+    "x": "",
+    "c": "",
+    "v": ""
+  }
+}
