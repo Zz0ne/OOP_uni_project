@@ -1,11 +1,15 @@
+# pad.py
 import tkinter
 
 from .buttons import PlayButton, LoadSampleButton
 from .sampleLoader import SampleLoader
-from save.save import Save
+
+from modules.save.save import Save
+from modules.audio.audio import Audio
+
 
 class Pad:
-    """ Classe composta pelo 'PlayButton' e 'LoadSampleButton' """
+    """Classe composta pelo 'PlayButton' e 'LoadSampleButton'"""
 
     def __init__(self, window, row, column, keyBind, feedBackColor):
         self.__row = row
@@ -15,10 +19,10 @@ class Pad:
         self.__sampleLoader = SampleLoader(window, self.__setSample)
         self.__keyBind = keyBind
         self.__feedBackColor = feedBackColor
-        self.__sample = Save.load(keyBind)
+        self.__sample = Audio(Save.load(keyBind))
 
     def __loadWidgets(self):
-        """ Cria instancias do 'PlayButton' e do ' LoadSampleButton' """
+        """Cria instancias do 'PlayButton' e do ' LoadSampleButton'"""
 
         self.__playButton = PlayButton(
             self.__window,
@@ -35,29 +39,29 @@ class Pad:
         )
 
     def __placeWidgets(self):
-        """ Posiciona widgets na janela """
+        """Posiciona widgets na janela"""
 
         self.__playButton.place()
         self.__loadSampleButton.place()
 
     def __loadAudioFile(self):
-        """ Abre o 'SampleLoader' """
+        """Abre o 'SampleLoader'"""
 
         self.__sampleLoader.run()
 
     def __playAudio(self):
-        """ Reproduz sample """
+        """Reproduz sample"""
 
         self.__sample.play()
 
     def __setSample(self, sample):
-        """ Método usado como callback pelo 'SampleLoader' para estrair o sample selecionado """
+        """Método usado como callback pelo 'SampleLoader' para estrair o sample selecionado"""
 
         self.__sample = sample
-        Save.save(self.__keyBind, sample)
+        Save.save(self.__keyBind, sample.name)
 
     def place(self):
-        """ Posiciona os widgets na janela """
+        """Posiciona os widgets na janela"""
 
         self.__loadWidgets()
         self.__placeWidgets()

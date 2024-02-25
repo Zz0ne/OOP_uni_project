@@ -3,16 +3,18 @@ from tkinter import messagebox
 from .pad import Pad
 import os
 
-from modules.audio.audio import Audio
 
 def getListOfDefaultSamplePaths():
-    """ Retorna a lista de samples presentes no diretório '../samples/default' """
+    """Retorna a lista de samples presentes no diretório '../samples/default'"""
 
     defaultFolderPath = "../samples/default"
-    return [os.path.join(defaultFolderPath, path) for path in os.listdir(defaultFolderPath)]
+    return [
+        os.path.join(defaultFolderPath, path) for path in os.listdir(defaultFolderPath)
+    ]
+
 
 class PadBoard:
-    """ Classe composta por varias instâncias da classe 'Pad' """
+    """Classe composta por varias instâncias da classe 'Pad'"""
 
     def __init__(self, window, rowSize, columnSize, row, column):
         self.__window = window
@@ -36,11 +38,11 @@ class PadBoard:
         ]
         self.__defaultSamples = getListOfDefaultSamplePaths()
         # Verifica se existem samples suficientes para a quantidade de pads
-        if(len(self.__defaultSamples) != rowSize * columnSize):
+        if len(self.__defaultSamples) != rowSize * columnSize:
             self.__onClosing()
 
     def __loadWidgets(self):
-        """ Cria as instâncias dos Pad's especificando as keybinds e as cores de feedback """
+        """Cria as instâncias dos Pad's especificando as keybinds e as cores de feedback"""
 
         for i in range(self.__rowSize):
             for j in range(self.__columnSize):
@@ -51,23 +53,22 @@ class PadBoard:
                         j,
                         self.__keyBindings[i][j],
                         self.__feedbackColors[i][j],
-                        Audio(self.__defaultSamples.pop())
                     )
                 )
 
     def __placeWidgets(self):
-        """ Posiciona os widgets na janela """
+        """Posiciona os widgets na janela"""
 
         for widget in self.__widgets:
             widget.place()
 
     def __onClosing(self):
-        """ Mostra uma mensagem de erro quando não ecistem samples suficientes para od pads """
+        """Mostra uma mensagem de erro quando não ecistem samples suficientes para od pads"""
         if messagebox.showerror("Error", "Not enought default samples."):
             quit()
 
     def place(self):
-        """ Posiciona os widgets na janela """
+        """Posiciona os widgets na janela"""
 
         self.__loadWidgets()
         self.__placeWidgets()
