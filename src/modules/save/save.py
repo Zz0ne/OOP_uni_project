@@ -20,8 +20,12 @@ def saveJsonFile(path: str, jsonFile: dict):
 
 
 class Save:
+    """Classe estática feita para encapsular as funcionalidadesrelacionadas
+    relacionadas com gravar e carregar o ultimo estado do programa"""
+
     @staticmethod
     def save(keyBind: str, sample: str):
+        """Grava o sample num ficheiro json"""
         jsonFile = getJsonFile(SAVE_FILE_PATH)
         jsonFile["userSave"][keyBind] = sample
         saveJsonFile(SAVE_FILE_PATH, jsonFile)

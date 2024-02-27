@@ -1,16 +1,5 @@
 import tkinter
-from tkinter import messagebox
 from .pad import Pad
-import os
-
-
-def getListOfDefaultSamplePaths():
-    """Retorna a lista de samples presentes no diretório '../samples/default'"""
-
-    defaultFolderPath = "../samples/default"
-    return [
-        os.path.join(defaultFolderPath, path) for path in os.listdir(defaultFolderPath)
-    ]
 
 
 class PadBoard:
@@ -36,10 +25,6 @@ class PadBoard:
             ["cyan", "magenta", "lime", "maroon"],
             ["navy", "olive", "teal", "white"],
         ]
-        self.__defaultSamples = getListOfDefaultSamplePaths()
-        # Verifica se existem samples suficientes para a quantidade de pads
-        if len(self.__defaultSamples) != rowSize * columnSize:
-            self.__onClosing()
 
     def __loadWidgets(self):
         """Cria as instâncias dos Pad's especificando as keybinds e as cores de feedback"""
@@ -61,11 +46,6 @@ class PadBoard:
 
         for widget in self.__widgets:
             widget.place()
-
-    def __onClosing(self):
-        """Mostra uma mensagem de erro quando não ecistem samples suficientes para od pads"""
-        if messagebox.showerror("Error", "Not enought default samples."):
-            quit()
 
     def place(self):
         """Posiciona os widgets na janela"""

@@ -9,15 +9,15 @@ from modules.audio.audio import Audio
 
 
 class SampleLoader:
-    """ Classe que representa o sample loader que permite ao utilizador adicionar e carregar novos samples """
+    """Classe que representa o sample loader que permite ao utilizador adicionar e carregar novos samples"""
 
     def __init__(self, window, callback):
         self.__window = window
         self.__sampleDirectory = "../samples/"
-        self.__setSampleCallback = callback 
+        self.__setSampleCallback = callback
 
     def __loadWidgets(self):
-        """ Cria instancias dos widgets necessários """
+        """Cria instancias dos widgets necessários"""
 
         self.__lable = Label(self.__loadSampleWindow, text="Samples:")
         self.__addSampleButton = GenericButton(
@@ -45,7 +45,7 @@ class SampleLoader:
         self.__sampleList = SampleList(self.__loadSampleWindow)
 
     def __placeWidgets(self):
-        """ Posiciona widgets na janela """
+        """Posiciona widgets na janela"""
 
         self.__lable.grid(row=1, column=1)
         self.__sampleList.place()
@@ -55,22 +55,22 @@ class SampleLoader:
         self.__cancelButton.place()
 
     def __onConfirm(self):
-        """ Método executado ao pressionar o botão 'Confirm' """
+        """Método executado ao pressionar o botão 'Confirm'"""
 
         sampleName = self.__sampleList.selectedSample
-        if (len(sampleName) == 0):
+        if len(sampleName) == 0:
             messagebox.showerror("Error", "Please select a sample.")
             return
         self.__setSampleCallback(Audio(sampleName))
         self.__loadSampleWindow.destroy()
 
     def __onCancel(self):
-        """ Método executado ao pressionar o botão 'Cancel' """
+        """Método executado ao pressionar o botão 'Cancel'"""
 
         self.__loadSampleWindow.destroy()
 
     def __addSample(self):
-        """ Método executado ao pressionar o botão 'Add' """
+        """Método executado ao pressionar o botão 'Add'"""
 
         audioFilePath = filedialog.askopenfilename()
         if audioFilePath:
@@ -83,9 +83,9 @@ class SampleLoader:
                 print("Error copying file:", e)
 
     def run(self):
-        """ Cria uma nova janela, bloqueia a janela principal,
+        """Cria uma nova janela, bloqueia a janela principal,
         centra a nova janela em relação à janela principal,
-        cria e posiciona os widgets """
+        cria e posiciona os widgets"""
 
         self.__loadSampleWindow = Toplevel()
         self.__loadSampleWindow.title("SampleLoader")
