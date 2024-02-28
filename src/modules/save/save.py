@@ -32,6 +32,9 @@ class Save:
 
     @staticmethod
     def load(keyBind: str):
+        """Carrega sample com base na tecla selecionada,
+        se não existir um sample gravado na tecla selecionada,
+        carrega o sample por defeito"""
         saveJson = getJsonFile(SAVE_FILE_PATH)
         sample = SAMPLE_BASE_PATH + "/" + saveJson["userSave"][keyBind]
 

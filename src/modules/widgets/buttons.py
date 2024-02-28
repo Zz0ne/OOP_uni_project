@@ -1,4 +1,10 @@
 from tkinter import Button
+import os
+
+BASE_DIR = os.path.dirname(
+    os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+)
+BTN_IMG_PATH = os.path.join(BASE_DIR, "assets", "generic_btn.png")
 
 
 class GenericButton:
@@ -12,7 +18,9 @@ class GenericButton:
         self.__setStyle()
 
     def __setStyle(self):
-        pass
+        self._button.configure(
+            borderwidth=1,
+        )
 
     def place(self):
         """Posiciona botão"""
@@ -60,6 +68,13 @@ class LoadSampleButton(GenericButton):
         self._y = y
 
         super().__init__(frame, "+", 0, 0, callback=callback)
+        self.__setStyle()
+
+    def __setStyle(self):
+        self._button.configure(
+            borderwidth=0,
+            background="grey",
+        )
 
     def place(self):
         """(Polimorfismo) Método para posicionar o botão"""
